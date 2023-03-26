@@ -2,4 +2,4 @@ name: iq infographics components'
 type: module
 description: 'Provides a set of components that can be useful for creating infographics.'
 package: iqual custom
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8.8 || ^9 || ^10
