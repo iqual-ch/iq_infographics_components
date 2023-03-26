@@ -1,0 +1,17 @@
+<div class="iq-tabbed-bar-diagram">
+  <div class="iq-tabbed-bar-diagram__header">
+    {% if pretitle|render is not empty %}<span class="pretitle">{{ pretitle }}</span>{% endif %}
+    {% if title_weight|render == "h1" %}<h1 class="title {{ title_font_style }}">{{ title|nl2br|raw }} </h1>{% endif %}
+    {% if title_weight|render == "h2" %}<h2 class="title {{ title_font_style }}">{{ title|nl2br|raw }} </h2>{% endif %}
+    {% if title_weight|render == "h3" %}<h3 class="title {{ title_font_style }}">{{ title|nl2br|raw }} </h3>{% endif %}
+    {% if title_weight|render == "h4" %}<h4 class="title {{ title_font_style }}">{{ title|nl2br|raw }} </h4>{% endif %}
+    {% if title_weight|render == "h5" %}<h5 class="title {{ title_font_style }}">{{ title|nl2br|raw }} </h5>{% endif %}
+    {% if title_weight|render == "h6" %}<h6 class="title {{ title_font_style }}">{{ title|nl2br|raw }} </h6>{% endif %}
+    {% if title_weight|render == "span" %}<span class="title {{ title_font_style }}">{{ title|nl2br|raw }} </span>{% endif %}
+    {% if subtitle|render is not empty %}<span class="subtitle">{{ subtitle }}</span>{% endif %}
+  </div>
+  <div class="iq-tabbed-bar-diagram__body iq-tabbed-bar-diagram__body--hidden" data-tabbed-bar-diagram>{{ bar_data }}</div>
+  <div class="iq-tabbed-bar-diagram__footer">
+    {% if content|render is not empty %}<div class="content iq-text small">{{ content }}</div>{% endif %}
+  </div>
+</div>

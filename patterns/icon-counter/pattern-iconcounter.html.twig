@@ -1,0 +1,19 @@
+<div class="iq-iconcounter">
+
+  <div class="iq-iconcounter__counter {{ title_font_style }}" data-counter-value="{{ number }}"></div>
+
+  {% if title|render is not empty %}
+  <div class="iq-iconcounter__title iq-text">
+    <div class="content iq-text">{{ title|nl2br|raw }}</div>
+  </div>
+  {% endif %}
+
+  {% if svg_file|render is not empty %}
+  <div class="iq-iconcounter__icon">
+    <img src="{{svg_file}}" alt="{{svg_alt}}" title="{{svg_title}}"/>
+  </div>
+  {% endif %}
+</div>
+
+
+

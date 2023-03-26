@@ -1,0 +1,14 @@
+.iq-iconcounter{
+  text-align: center;
+  &__counter{
+
+  }
+  &__title{
+    word-break: break-word;
+  }
+  &__icon{
+    padding-top: 30px;
+    max-width: 50%;
+    margin: auto;
+  }
+}
