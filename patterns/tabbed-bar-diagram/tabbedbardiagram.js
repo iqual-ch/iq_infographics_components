@@ -111,7 +111,6 @@
 
         let observer = new IntersectionObserver(
           ([e]) => {
-            console.log(e.intersectionRatio);
             if (e.intersectionRatio > 0) {
               $diagramWrapper.removeClass('iq-tabbed-bar-diagram__body--hidden');
               if (!$tabWrapper.find('.active').length) {
