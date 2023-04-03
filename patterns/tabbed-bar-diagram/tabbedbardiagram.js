@@ -1,5 +1,32 @@
 (function ($, Drupal) {
 
+  // Calculate titles height for each row
+  function calcTitleHeight() {
+
+    $('.iq-tabbed-bar-diagram__header').css('height', '');
+
+    if ($(window).width() < 768) {
+      return;
+    };
+
+    let $rows = $('.container-fluid .iq-row:has(> .iq-column > .iq-tabbed-bar-diagram)');
+    $rows.each(function () {
+      $titles = $(this).find('.iq-tabbed-bar-diagram__header');
+      let titleHeights = $titles.map(function () {
+        return $(this).outerHeight()
+      }).get();
+
+      let maxTitleHeight = Math.max.apply(null, titleHeights);
+
+      $titles.each(function () {
+        if ($(this).height() != maxTitleHeight) {
+          $(this).css('height', maxTitleHeight);
+        }
+      });
+
+    });
+  };
+
   $.fn.animateBarCounter = function(value) {
     value = Number(value);
     let startTimestamp = null;
@@ -31,6 +58,7 @@
       $diagramWrapper.html('');
       let $tabContentWrapper = $('<div class="iq-tabbed-bar-diagram__tab-content-wrapper">');
       let $tabWrapper = $('<div class="iq-tabbed-bar-diagram__tab-wrapper">');
+      let min = 0;
 
       if (Array.isArray(data)) {
         data.forEach(element => {
@@ -48,18 +76,32 @@
           });
 
           // Generate Bars.
-          let max = Math.max(...element.bars.map(bar => Number(bar.value)));
+          let max = Math.max(...element.bars.map(bar => isNaN(Number(bar.value)) ? 0 : Number(Math.abs(bar.value))));
           element.bars.forEach(bar => {
             let $bar = $('<div class="bar uninitialized">');
             let value = Number(bar.value);
+            let barHeight = 0;
+
+            if (isNaN(value)) {
+              $bar.attr('data-value', bar.value);
+            }
+            else {
+              barHeight = Math.abs(value) / max * 100;
+              $tabContent.on('animate-bar-counter', function () {
+                $bar.animateBarCounter(value);
+              });
+            }
+
+            $bar.height(barHeight + '%');
+
+            if (value < 0) {
+              $bar.addClass('negative');
+              min = Math.max(min, barHeight);
+            }
 
             $bar.attr('data-label', bar.label);
-            $bar.height(value / max * 100 + '%');
+            $bar.attr('data-suffix', bar.suffix);
             $tabContent.append($bar);
-
-            $tabContent.on('animate-bar-counter', function(){
-              $bar.animateBarCounter(value);
-            });
           });
 
           $tabContentWrapper.append($tabContent);
@@ -72,7 +114,14 @@
             console.log(e.intersectionRatio);
             if (e.intersectionRatio > 0) {
               $diagramWrapper.removeClass('iq-tabbed-bar-diagram__body--hidden');
-              $tabWrapper.children(":first").click();
+              if (!$tabWrapper.find('.active').length) {
+                $tabWrapper.children(":first").click();
+              }
+              if (min) {
+                let wrapperHeight = $tabContentWrapper.height();
+                $tabContentWrapper.css('padding-bottom', (wrapperHeight * min / 100) + 'px');
+                $tabContentWrapper.css('height', (wrapperHeight + wrapperHeight * min / 100) + 'px');
+              }
             }
           },
           { threshold: [0], rootMargin: `0px 0px 0px 0px` }
@@ -80,6 +129,12 @@
         observer.observe($diagramWrapper.get(0));
       }
     });
+
+    calcTitleHeight();
+  });
+
+  $(window).resize(function () {
+    calcTitleHeight();
   });
 })(jQuery, Drupal);
 
