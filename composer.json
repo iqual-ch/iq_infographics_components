@@ -3,11 +3,15 @@
   "description": "Provides a set of components that can be useful for creating infographics.",
   "type": "drupal-custom-module",
   "keywords": [
-      "Drupal"
+    "Drupal"
   ],
   "homepage": "https://github.com/iqual-ch/iq_infographics_components.info",
   "support": {
-      "issues": "https://github.com/iqual-ch/iq_infographics_components.info/issues",
-      "source": "https://github.com/iqual-ch/iq_infographics_components.info"
+    "issues": "https://github.com/iqual-ch/iq_infographics_components.info/issues",
+    "source": "https://github.com/iqual-ch/iq_infographics_components.info"
+  },
+  "require": {
+    "php": "^8.1",
+    "drupal/core": "^9.5 || ^10"
   }
 }
