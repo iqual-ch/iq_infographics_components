@@ -62,6 +62,8 @@ iconcounter:
       description: "Hide on print"
   libraries:
     - iconcounter:
+        dependencies:
+          - core/jquery
         js:
           iconcounter.js: {}
         css:
