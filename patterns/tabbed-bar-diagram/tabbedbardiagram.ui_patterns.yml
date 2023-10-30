@@ -60,6 +60,8 @@ tabbedbardiagram:
       description: "Hide on print"
   libraries:
     - tabbedbardiagram:
+        dependencies:
+          - core/jquery
         js:
           //cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js: { minified: true, type: external }
           tabbedbardiagram.js: {}
